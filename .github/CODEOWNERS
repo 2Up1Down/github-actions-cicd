@@ -1,0 +1,4 @@
+* @2up1down
+*.js @2up1down
+*.yml @2up1down
+/public/ @up1down
