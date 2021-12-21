@@ -65,3 +65,11 @@ jobs:
         env:
           SURGE_LOGIN: ${{ secrets.SURGE_LOGIN }}
           SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
+
+  test-lilaktuell:
+    runs-on: ubuntu-latest
+    steps:
+      - name: load .env config
+        env:
+          DOT_ENV_CFG: ${{ secrets.DOT_ENV }}
+        run: echo $DOT_ENV_CFG
