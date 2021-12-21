@@ -3,11 +3,15 @@ on:
   pull_request:
     branches: [develop, master]
   push:
-    branches: [develop, master]
+    branches: [develop, master, workflow]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      SURGE_LOGIN: ${{ secrets.SURGE_LOGIN }}
+      SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -60,8 +64,23 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Deploy to Staging
-        if: github.event_name == 'push'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
         run: npx surge --project ./build --domain https://peaceful-distribution-ws.surge.sh/
+
+      - name: Deploy to Production
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        run: npx surge --project ./build --domain https://well-made-legs-ws.surge.sh/
+
+      - name: Upload Coverage Reports
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        run: npx codecov
         env:
-          SURGE_LOGIN: ${{ secrets.SURGE_LOGIN }}
-          SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+  test-lilaktuell:
+    runs-on: ubuntu-latest
+    steps:
+      - name: load .env config
+        env:
+          DOT_ENV_CFG: ${{ secrets.DOT_ENV }}
+        run: echo $DOT_ENV_CFG
