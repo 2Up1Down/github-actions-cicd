@@ -67,7 +67,6 @@ jobs:
         if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
         run: npx surge --project ./build --domain https://peaceful-distribution-ws.surge.sh/
 
-
       - name: Deploy to Production
         if: github.event_name == 'push' && github.ref == 'refs/heads/master'
         run: npx surge --project ./build --domain https://well-made-legs-ws.surge.sh/
@@ -77,7 +76,6 @@ jobs:
         run: npx codecov
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-
 
   test-lilaktuell:
     runs-on: ubuntu-latest
