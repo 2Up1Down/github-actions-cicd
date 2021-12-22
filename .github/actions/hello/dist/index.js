@@ -884,9 +884,9 @@ const github = __webpack_require__(469)
 // npx ncc build .github/actions/hello/index.js -o .github/actions/hello/dist
 
 try {
-  core.debug('Debug message')
-  core.warning('Warning message')
-  core.error('Error message')
+  core.debug('This is how an Debug message looks')
+  core.warning('This is how an Warning message looks')
+  core.error('This is how an Error message looks')
 
   const name = core.getInput('who-to-greet')
   core.setSecret(name)
@@ -899,7 +899,7 @@ try {
   console.log(JSON.stringify(github, null, '\t'))
   core.endGroup()
 
-  core.exportVariable('HELLO', 'hello')
+  core.exportVariable('HELLO', 'hello-from-the-env-variable-in-the-hello-action')
 } catch (error) {
   core.setFailed(error.message)
 }
