@@ -5,9 +5,9 @@ const github = require('@actions/github')
 // npx ncc build .github/actions/hello/index.js -o .github/actions/hello/dist
 
 try {
-  core.debug('Debug message')
-  core.warning('Warning message')
-  core.error('Error message')
+  core.debug('This is how an Debug message looks')
+  core.warning('This is how an Warning message looks')
+  core.error('This is how an Error message looks')
 
   const name = core.getInput('who-to-greet')
   core.setSecret(name)
